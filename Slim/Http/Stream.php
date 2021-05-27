@@ -435,7 +435,7 @@ class Stream implements StreamInterface
         if ($this->isPipe === null) {
             $this->isPipe = false;
             if ($this->isAttached()) {
-                $mode = fstat($this->stream)['mode'];
+                $mode = fstat($this->stream)['mode'] ?? 0;
                 $this->isPipe = ($mode & self::FSTAT_MODE_S_IFIFO) !== 0;
             }
         }
