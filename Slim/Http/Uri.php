@@ -179,14 +179,14 @@ class Uri implements UriInterface
             $port = (int)$env->get('SERVER_PORT', 80);
         }
 
-        if (preg_match('/^(\[[a-fA-F0-9:.]+\])(:\d+)?\z/', $host, $matches)) {
+        if (preg_match('/^(\[[a-fA-F0-9:.]+\])(:\d+)?\z/', $host ?? '', $matches)) {
             $host = $matches[1];
 
             if (isset($matches[2])) {
                 $port = (int) substr($matches[2], 1);
             }
         } else {
-            $pos = strpos($host, ':');
+            $pos = strpos($host ?? '', ':');
             if ($pos !== false) {
                 $port = (int) substr($host, $pos + 1);
                 $host = strstr($host, ':', true);
@@ -718,7 +718,7 @@ class Uri implements UriInterface
             function ($match) {
                 return rawurlencode($match[0]);
             },
-            $query
+            $query ?? ''
         );
     }
 
